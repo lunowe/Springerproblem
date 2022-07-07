@@ -7,7 +7,7 @@ public class App {
         boolean simplifiedVariant = false;
         String startingPosition = "a1";
         int numOfSampleSolutionsToShow = 5;
-        int typeOfOutput = 0;
+        int typeOfOutput = 0; // 0 fuer eine bestimmte Startposition, 1 fuer alle zusammen
         Springerproblem problem1 = new Springerproblem(col, row, simplifiedVariant, closedTour, startingPosition,
                 numOfSampleSolutionsToShow);
         // problem1.run();
