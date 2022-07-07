@@ -15,13 +15,16 @@ public class Springerproblem {
   private int x;
   private int y;
 
-  public Springerproblem(int x, int y, boolean isEasy, boolean closed, int xpos, int ypos) {
+  private int numOfSolsToPrint;
+
+  public Springerproblem(int x, int y, boolean isEasy, boolean closed, String pos, int numOfSolsToPrint) {
     this.sizeX = x;
     this.sizeY = y;
     this.isEasy = isEasy;
     this.closed = closed;
-    this.x = xpos;
-    this.y = ypos;
+    this.x = Schachnotation.convertToNormal(pos, y)[0];
+    this.y = Schachnotation.convertToNormal(pos, y)[1];
+    this.numOfSolsToPrint = numOfSolsToPrint;
   }
 
   private int[][] createBoard() {
@@ -137,19 +140,17 @@ public class Springerproblem {
   // return moves.get(n);
   // }
 
-  private int getNumOfTotalSolutions() {
-    int totalSol = 1;
-    ArrayList<int[][]> prevBoards = new ArrayList<int[][]>();
-    int[][] board = createBoard();
-    board[this.y][this.x] = 0;
-    prevBoards.add(board);
-    while (solve(board, this.y, this.x, 1, prevBoards)) {
-      totalSol++;
-      prevBoards.add(board);
-      board = createBoard();
-      board[this.y][this.x] = 0;
+  public int getNumOfTotalSolutions(int x, int y) {
+    int count = 0;
+    for (int i = 0; i < y; i++) {
+      for (int j = 0; j < x; j++) {
+        this.x = j;
+        this.y = i;
+        count += this.runWhileLoop();
+        this.solutions.removeAll(this.solutions);
+      }
     }
-    return totalSol;
+    return count;
   }
 
   private boolean checkIfBoardAreEqual(int[][] currentBoard, ArrayList<int[][]> prevBoards) {
@@ -170,7 +171,7 @@ public class Springerproblem {
   }
 
   public void run() {
-    int numOfSol = 3;
+    int numOfSol = 100000;
     boolean DidNotRemove = true;
     int[][][] boards = new int[numOfSol][this.sizeY][this.sizeX];
     int[][] prevBoard = createBoard();
@@ -181,7 +182,6 @@ public class Springerproblem {
       b = createBoard();
       b[this.y][this.x] = 0;
       if (!this.solve(b, this.y, this.x, 1, prevBoards)) {
-        System.out.println("Knight's tour is not possible");
         break;
       } else {
         if (DidNotRemove) {
@@ -195,12 +195,70 @@ public class Springerproblem {
 
       }
     }
-    for (String s : this.createSolutionString(solutions)) {
-      System.out.println(s);
-    }
-    // String s[] = this.createSolutionString(this.solutions);
-    // if (s.length > 0) {
-    // System.out.println(s[s.length - 1]);
+    // for (String s : this.createSolutionString(solutions)) {
+    // System.out.println(s);
     // }
+    if (this.solutions.size() > 0) {
+      System.out
+          .println("Number of total possible " + ((this.closed && !this.isEasy) ? "closed " : "")
+              + "solutions for the given starting position "
+              + Schachnotation.getSchanotation(this.y, this.x, this.sizeY) + " on a " + this.sizeX + "x" + this.sizeY
+              + " board" + (this.isEasy ? "(simplified variant)" : "(standard variant)") + ": "
+              + this.solutions.size());
+      String s[] = this.createSolutionString(this.solutions);
+      for (int i = 0; i < this.numOfSolsToPrint; i++) {
+        System.out.println(s[i]);
+      }
+    } else {
+      System.out.println("Knight's tour is not possible");
+    }
+  }
+
+  public int runWhileLoop() {
+    // board init
+    int[][] board = createBoard();
+    board[this.y][this.x] = 0;
+    // prev board init
+    boolean DidNotRemove = true;
+    ArrayList<int[][]> prevBoards = new ArrayList<int[][]>();
+    int[][] prevBoard = createBoard();
+    prevBoard[this.y][this.x] = 0;
+    prevBoards.add(prevBoard);
+
+    while (this.solve(board, this.y, this.x, 1, prevBoards)) {
+      if (DidNotRemove) {
+        DidNotRemove = false;
+        prevBoards.remove(0);
+      }
+      this.solutions.add(board);
+      prevBoards.add(board);
+      board = createBoard();
+      board[this.y][this.x] = 0;
+    }
+    if (this.solutions.size() > 0) {
+      System.out
+          .println("Number of total possible " + ((this.closed && !this.isEasy) ? "closed " : "")
+              + "solutions for the given starting position "
+              + Schachnotation.getSchanotation(this.y, this.x, this.sizeY) + " on a " + this.sizeX + "x" + this.sizeY
+              + " board" + (this.isEasy ? "(simplified variant)" : "(standard variant)") + ": "
+              + this.solutions.size());
+      String s[] = this.createSolutionString(this.solutions);
+      if (this.numOfSolsToPrint >= 0) {
+        if (this.numOfSolsToPrint > 0)
+          System.out.println("Here are " + this.numOfSolsToPrint + " sample Solutions:");
+        for (int i = 0; i < this.numOfSolsToPrint; i++)
+          System.out.println(s[i]);
+      } else {
+        System.out.println("Here are all possible Solutions:");
+        for (int i = 0; i < this.solutions.size(); i++)
+          System.out.println(s[i]);
+      }
+    } else {
+      System.out.println(
+          ((this.closed && !this.isEasy) ? "closed " : "") + "Knight's tour is not possible for the starting position "
+              + Schachnotation.getSchanotation(this.y, this.x, this.sizeY) + " on a " + this.sizeX + "x" + this.sizeY
+              + " board" + (this.isEasy ? "(simplified variant)." : "(standard variant)."));
+    }
+    return this.solutions.size();
   }
 }

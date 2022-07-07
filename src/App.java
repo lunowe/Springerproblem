@@ -1,33 +1,28 @@
 public class App {
     public static void main(String[] args) throws Exception {
+        int count = 0;
+        int col = 5;
+        int row = 5;
+        boolean closedTour = false;
+        boolean simplifiedVariant = false;
+        String startingPosition = "a1";
+        int numOfSampleSolutionsToShow = 5;
+        int typeOfOutput = 0;
+        Springerproblem problem1 = new Springerproblem(col, row, simplifiedVariant, closedTour, startingPosition,
+                numOfSampleSolutionsToShow);
+        // problem1.run();
 
-        Springerproblem problem1 = new Springerproblem(3, 10, false, true, 0, 0);
-        problem1.run();
-        // for (int i = 0; i < 6; i++) {
-        // for (int j = 0; j < 6; j++) {
-        // Springerproblem problem1 = new Springerproblem(6, 6, false, false, j, i);
-        // problem1.run();
-        // }
-        // }
-        // for (int i = 0; i < 5; i++) {
-        // for (int j = 0; j < 5; j++) {
-        // Springerproblem problem1 = new Springerproblem(5, 5, false, true, j, i);
-        // problem1.run();
-        // }
-        // }
-        // System.out.println("");
-        // for (int i = 0; i < 5; i++) {
-        // for (int j = 0; j < 5; j++) {
-        // Springerproblem problem2 = new Springerproblem(5, 5, false, false, j, i);
-        // problem2.run();
-        // }
-        // }
-        // System.out.println("");
-        // for (int i = 0; i < 5; i++) {
-        // for (int j = 0; j < 5; j++) {
-        // Springerproblem problem3 = new Springerproblem(5, 5, true, false, j, i);
-        // problem3.run();
-        // }
-        // }
+        switch (typeOfOutput) {
+            case 0:
+                problem1.runWhileLoop();
+                break;
+            case 1:
+                count = problem1.getNumOfTotalSolutions(col, row);
+                System.out.println("Number of total possible " + ((closedTour &&
+                        !simplifiedVariant) ? "closed " : "")
+                        + "solutions for all starting positions combined: " + count);
+            default:
+                System.out.println("Wrong Input!");
+        }
     }
 }
