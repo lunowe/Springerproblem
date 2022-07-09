@@ -191,7 +191,16 @@ public class Springerproblem {
         for (int i = 0; i < this.solutions.size(); i++)
           System.out.println(s[i]);
       } else {
-        System.out.println("Here are " + this.numOfSolsToPrint + " sample solutions");
+        if (this.numOfSolsToPrint == 1) {
+          System.out.println("Here is one sample solution for a " + this.sizeX + "x" + this.sizeY
+              + " board" + (this.isEasy ? "(simplified variant)" : "(standard variant)") + " starting on position "
+              + Schachnotation.getSchanotation(this.y, this.x, this.sizeY) + ":");
+        } else {
+          System.out
+              .println("Here are " + this.numOfSolsToPrint + " sample solutions for a " + this.sizeX + "x" + this.sizeY
+                  + " board" + (this.isEasy ? "(simplified variant)" : "(standard variant)") + " starting on position "
+                  + Schachnotation.getSchanotation(this.y, this.x, this.sizeY) + ":");
+        }
         for (int i = 0; i < this.numOfSolsToPrint; i++) {
           System.out.println(s[i]);
         }
@@ -237,7 +246,10 @@ public class Springerproblem {
             for (int i = 0; i < this.solutions.size(); i++)
               System.out.println(s[i]);
           } else {
-            System.out.println("Here are " + this.numOfSolsToPrint + " sample solutions:");
+            if (this.numOfSolsToPrint == 1)
+              System.out.println("Here is one sample solution:");
+            else
+              System.out.println("Here are " + this.numOfSolsToPrint + " sample solutions:");
             for (int i = 0; i < this.numOfSolsToPrint; i++)
               System.out.println(s[i]);
           }

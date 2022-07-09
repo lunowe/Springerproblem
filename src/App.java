@@ -1,12 +1,12 @@
 public class App {
     public static void main(String[] args) throws Exception {
         int count = 0;
-        int col = 4;
-        int row = 7;
+        int col = 5;
+        int row = 5;
         boolean closedTour = false;
         boolean simplifiedVariant = false;
         String startingPosition = "a1";
-        int numOfSampleSolutionsToShow = 5; // < 0 fuer alle Loesungen (funktioniert nicht bei Output 2)
+        int numOfSampleSolutionsToShow = 1; // < 0 fuer alle Loesungen (funktioniert nicht bei Output 2)
         int typeOfOutput = 0; // 0 fuer eine bestimmte Startposition, 1 fuer alle zusammen, 2 fuer einzelne
                               // Loesungen
         Springerproblem problem1 = new Springerproblem(col, row, simplifiedVariant, closedTour, startingPosition,
