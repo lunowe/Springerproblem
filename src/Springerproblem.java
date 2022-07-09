@@ -128,18 +128,6 @@ public class Springerproblem {
     return false;
   }
 
-  // public int[] pickNewMove() {
-  // int[] move = new int[2];
-  // ArrayList<int[]> moves = new ArrayList<int[]>();
-  // ArrayList<Integer> numMoves = new ArrayList<Integer>();
-  // for (int i = 0; i < 8; i++) {
-  // move[0] = movesX[i];
-  // move[1] = movesY[i];
-  // }
-  // int n = numMoves.indexOf(Collections.min(numMoves));
-  // return moves.get(n);
-  // }
-
   public int getNumOfTotalSolutions(int x, int y) {
     int count = 0;
     for (int i = 0; i < y; i++) {
@@ -155,23 +143,26 @@ public class Springerproblem {
 
   private boolean checkIfBoardAreEqual(int[][] currentBoard, ArrayList<int[][]> prevBoards) {
     for (int[][] b : prevBoards) {
-      boolean isEqual = true;
-      for (int i = 0; i < this.sizeY; i++) {
-        for (int j = 0; j < this.sizeX; j++) {
-          if (currentBoard[i][j] != b[i][j]) {
-            isEqual = false;
-          }
-        }
-      }
-      if (isEqual) {
+      // boolean isEqual = true;
+      if (Arrays.deepEquals(currentBoard, b)) {
         return true;
       }
+      // for (int i = 0; i < this.sizeY; i++) {
+      // for (int j = 0; j < this.sizeX; j++) {
+      // if (currentBoard[i][j] != b[i][j]) {
+      // isEqual = false;
+      // }
+      // }
+      // }
+      // if (isEqual) {
+      // return true;
+      // }
     }
     return false;
   }
 
   public void run() {
-    int numOfSol = 100000;
+    int numOfSol = this.numOfSolsToPrint;
     boolean DidNotRemove = true;
     int[][][] boards = new int[numOfSol][this.sizeY][this.sizeX];
     int[][] prevBoard = createBoard();
@@ -188,26 +179,22 @@ public class Springerproblem {
           DidNotRemove = false;
           prevBoards.remove(0);
         }
-        // printBoard(b);
         this.solutions.add(b);
         prevBoards.add(b);
-        // System.out.println(this.checkIfBoardAreEqual(b, prevBoards));
-
       }
     }
-    // for (String s : this.createSolutionString(solutions)) {
-    // System.out.println(s);
-    // }
     if (this.solutions.size() > 0) {
-      System.out
-          .println("Number of total possible " + ((this.closed && !this.isEasy) ? "closed " : "")
-              + "solutions for the given starting position "
-              + Schachnotation.getSchanotation(this.y, this.x, this.sizeY) + " on a " + this.sizeX + "x" + this.sizeY
-              + " board" + (this.isEasy ? "(simplified variant)" : "(standard variant)") + ": "
-              + this.solutions.size());
       String s[] = this.createSolutionString(this.solutions);
-      for (int i = 0; i < this.numOfSolsToPrint; i++) {
-        System.out.println(s[i]);
+      if (this.solutions.size() < this.numOfSolsToPrint) {
+        System.out.println("There are less solutions than specified to print, so here are all possible "
+            + this.solutions.size() + " solutions");
+        for (int i = 0; i < this.solutions.size(); i++)
+          System.out.println(s[i]);
+      } else {
+        System.out.println("Here are " + this.numOfSolsToPrint + " sample solutions");
+        for (int i = 0; i < this.numOfSolsToPrint; i++) {
+          System.out.println(s[i]);
+        }
       }
     } else {
       System.out.println("Knight's tour is not possible");
@@ -244,12 +231,19 @@ public class Springerproblem {
               + this.solutions.size());
       String s[] = this.createSolutionString(this.solutions);
       if (this.numOfSolsToPrint >= 0) {
-        if (this.numOfSolsToPrint > 0)
-          System.out.println("Here are " + this.numOfSolsToPrint + " sample Solutions:");
-        for (int i = 0; i < this.numOfSolsToPrint; i++)
-          System.out.println(s[i]);
+        if (this.numOfSolsToPrint > 0) {
+          if (this.solutions.size() < this.numOfSolsToPrint) {
+            System.out.println("There are less solutions than specified to print, so here are all possible solutions");
+            for (int i = 0; i < this.solutions.size(); i++)
+              System.out.println(s[i]);
+          } else {
+            System.out.println("Here are " + this.numOfSolsToPrint + " sample solutions:");
+            for (int i = 0; i < this.numOfSolsToPrint; i++)
+              System.out.println(s[i]);
+          }
+        }
       } else {
-        System.out.println("Here are all possible Solutions:");
+        System.out.println("Here are all possible solutions:");
         for (int i = 0; i < this.solutions.size(); i++)
           System.out.println(s[i]);
       }
