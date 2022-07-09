@@ -1,4 +1,21 @@
+/**
+ * 
+ * Schachnotation Klasse
+ * 
+ * @author Luca Wegner, Arnd Bethge
+ * 
+ */
 public class Schachnotation {
+  /**
+   * 
+   * methode welche position des springers in schachnotation wiedergibt
+   * 
+   * @param y     int, y position des springers
+   * @param x     int, x position des springers
+   * @param sizey int, anzahl der zeilen des spielbretts
+   * @return gibt einen String wider, welcher die position des springers in
+   *         schachnotation ist
+   */
   public static String getSchanotation(int y, int x, int sizey) {
     char c;
     switch (x) {
@@ -106,6 +123,16 @@ public class Schachnotation {
     return s;
   }
 
+  /**
+   * 
+   * methode welche aus position des springers in schachnotation in x y werte der
+   * position des springers umwandelt
+   * 
+   * @param s     string, position des springers in schachnotation
+   * @param sizey int, anzahl der zeilen des spielbretts
+   * @return 2d array von int, gibt position des springers in x und y werten (int)
+   *         wieder
+   */
   public static int[] convertToNormal(String s, int sizey) {
     char c = s.charAt(0);
     int x;

@@ -1,22 +1,70 @@
 import java.util.*;
 
+/**
+ * 
+ * Springerproblem Klasse
+ * 
+ * @author Luca Wegner, Arnd Bethge
+ * 
+ */
 public class Springerproblem {
-  Random rand = new Random();
+  // Random rand = new Random();
+  /**
+   * alle moeglichen zuege fuer den springer entlang der x-achse
+   */
   private int[] movesX = { 2, 1, -1, -2, -2, -1, 1, 2 };
+  /**
+   * alle moeglichen zuege fuer den springer entlang der y-achse
+   */
   private int[] movesY = { 1, 2, 2, 1, -1, -2, -2, -1 };
 
+  /**
+   * anzahl der spalten
+   */
   private int sizeX;
+  /**
+   * anzahl der zeilen
+   */
   private int sizeY;
+  /**
+   * arraylist in welcher alle loesungen gespeichert werden
+   */
   private ArrayList<int[][]> solutions = new ArrayList<int[][]>();
 
+  /**
+   * vereinfachte oder standard variante
+   */
   private boolean isEasy;
+  /**
+   * geschlossene route oder nicht
+   */
   private boolean closed;
 
+  /**
+   * x startposition des springers
+   */
   private int x;
+  /**
+   * y startposition des springers
+   */
   private int y;
 
+  /**
+   * anzahl der auszugebenden loesungswege
+   */
   private int numOfSolsToPrint;
 
+  /**
+   * 
+   * Konstruktor
+   * 
+   * @param x                int, anzahl der spalten
+   * @param y                int, anzahl der zeilen
+   * @param isEasy           boolean, vereinfachte variante oder normale
+   * @param closed           boolean, geschlossene route oder offene
+   * @param pos              string, startposition des springers in schachnotation
+   * @param numOfSolsToPrint int, anzahl der anzahl der auszugebenden loesungswege
+   */
   public Springerproblem(int x, int y, boolean isEasy, boolean closed, String pos, int numOfSolsToPrint) {
     this.sizeX = x;
     this.sizeY = y;
@@ -27,6 +75,12 @@ public class Springerproblem {
     this.numOfSolsToPrint = numOfSolsToPrint;
   }
 
+  /**
+   * 
+   * methode welche ein spielbrett erzeugt
+   * 
+   * @return gibt 2d array, welches das spielbrett darstellt wieder
+   */
   private int[][] createBoard() {
     int board[][] = new int[this.sizeY][this.sizeX];
     for (int y = 0; y < this.sizeY; y++) {
@@ -37,6 +91,14 @@ public class Springerproblem {
     return board;
   }
 
+  /**
+   * 
+   * methode welche einen loesungsstring erzeugt
+   * 
+   * @param sol arraylist, beinhaltet alle loesungswege
+   * @return gibt ein array von strings wieder, welches alle loesungswege in der
+   *         schachnoation beinhaltet
+   */
   private String[] createSolutionString(ArrayList<int[][]> sol) {
     String[] solution = new String[sol.size()];
     String solutionString;
@@ -58,24 +120,35 @@ public class Springerproblem {
     return solution;
   }
 
-  // private void printBoard(int[][] board) {
-  // for (int i = 0; i < this.sizeY; i++) {
-  // System.out.println(Arrays.toString(board[i]));
-  // }
-  // }
-
-  private boolean validateMove(int[][] board, int row, int col, int counter) {
+  /**
+   * 
+   * methode welche einen naechsten zug validiert
+   * 
+   * @param board   2d array, stellt das spielbrett zum jetzigen zeitpunkt dar
+   * @param row     int, y position des springers zum zeipunkt des naechsten zuges
+   * @param col     int, x position des springers zum zeipunkt des naechsten zuges
+   * @param counter int, gibt den n.ten zug an
+   * @return gibt einen boolean wieder ob der naechste zug moeglich ist oder nicht
+   */
+  private boolean validateMove(int[][] board, int row, int col) {
     if (row < this.sizeY && row >= 0 && col < this.sizeX && col >= 0 && board[row][col] == -1) {
-      if (this.closed) {
-        if (counter == this.sizeX * this.sizeY - 1) {
-
-        }
-      }
       return true;
     }
     return false;
   }
 
+  /**
+   * 
+   * rekursive mehtode welche eine loesung fuer das springerproblem liefert
+   * 
+   * @param board      2d array, stellt das spielbrett zum jetzigen zeitpunkt dar
+   * @param row        int, y position des springers zum jetzigen zeitpunkt
+   * @param col        int, x position des springers zum jetzigen zeitpunkt
+   * @param counter    int, gibt an welcher zug sich das programm gerade befindet
+   * @param prevBoards arraylist von 2d arrays, beinhaltet alle vorherigen
+   *                   loesungen
+   * @return gibt einen boolean wieder, ob es eine loesung gibt oder nicht
+   */
   private boolean solve(int[][] board, int row, int col, int counter, ArrayList<int[][]> prevBoards) {
     int new_x, new_y;
 
@@ -112,12 +185,9 @@ public class Springerproblem {
     }
 
     for (int i = 0; i < 8; i++) {
-      // int[] moves = this.pickNewMove();
-      // System.out.println(moves[0]);
-      // moves = this.pickNewMove();
       new_y = row + movesY[i];
       new_x = col + movesX[i];
-      if (validateMove(board, new_y, new_x, counter)) {
+      if (validateMove(board, new_y, new_x)) {
         board[new_y][new_x] = counter;
         if (solve(board, new_y, new_x, counter + 1, prevBoards))
           return true;
@@ -128,6 +198,14 @@ public class Springerproblem {
     return false;
   }
 
+  /**
+   * 
+   * methode welche gesamtanzahl aller moeglichen loesungen berrechnet
+   * 
+   * @param x int, anzahl der spalten
+   * @param y int, anzahl der zeilen
+   * @return gibt anzahl aller loesungen wieder
+   */
   public int getNumOfTotalSolutions(int x, int y) {
     int count = 0;
     for (int i = 0; i < y; i++) {
@@ -141,6 +219,16 @@ public class Springerproblem {
     return count;
   }
 
+  /**
+   * 
+   * methode welche alle vorherigen loesung mit der jetzigen vergleicht
+   * 
+   * @param currentBoard 2d array, jetztiges spielbrett (jetztige loesung)
+   * @param prevBoards   arraylist von 2d arrays, beinhaltet alle vorherigen
+   *                     loesungen
+   * @return gibt boolean wieder ob die jetztige loesung identisch mit einer
+   *         vorherigen ist
+   */
   private boolean checkIfBoardAreEqual(int[][] currentBoard, ArrayList<int[][]> prevBoards) {
     for (int[][] b : prevBoards) {
       // boolean isEqual = true;
@@ -161,6 +249,10 @@ public class Springerproblem {
     return false;
   }
 
+  /**
+   * methode welche die solve methode so oft startet, wie viele loesungen
+   * gewuenscht wurden
+   */
   public void run() {
     int numOfSol = this.numOfSolsToPrint;
     boolean DidNotRemove = true;
@@ -210,6 +302,14 @@ public class Springerproblem {
     }
   }
 
+  /**
+   * 
+   * methode welche alle loesungen fuer eine startposition berrechnet und
+   * gewuentsch viele loesungen ausgibt
+   * 
+   * @return int, gibt anzahl an gefunden loesungen wieder (ist aber nur fuer
+   *         getNumOfTotalSolutions wichtig bzw. wird nur dort genutzt)
+   */
   public int runWhileLoop() {
     // board init
     int[][] board = createBoard();

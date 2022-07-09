@@ -1,17 +1,65 @@
+/**
+ * 
+ * App Klasse in das springerproblem programm ausgefuehrt wird
+ * 
+ * @author Luca Noel Wegner, Arnd Bethge
+ */
 public class App {
+    /**
+     * Main Methode, Programm wird hier aufgerufen
+     * 
+     * @param args
+     * @throws Exception
+     * 
+     */
     public static void main(String[] args) throws Exception {
+        /**
+         * speichert gesamtanzahl aller moeglichen loesungen
+         */
         int count = 0;
-        int col = 5;
-        int row = 5;
-        boolean closedTour = false;
+        /**
+         * anzahl an spalten
+         */
+        int col = 3;
+        /**
+         * anzahl an zeilen
+         */
+        int row = 10;
+        /**
+         * gibt an ob es sich um die geschlossene variante handelt
+         */
+        boolean closedTour = true;
+        /**
+         * gibt an ob es sich um die klasische oder vereinfachte variante handelt
+         */
         boolean simplifiedVariant = false;
+        /**
+         * start position des springers in schachnotation
+         */
         String startingPosition = "a1";
-        int numOfSampleSolutionsToShow = 1; // < 0 fuer alle Loesungen (funktioniert nicht bei Output 2)
+        /**
+         * anzahl der auszugebenden loesungswege
+         * </p>
+         * < 0 fuer alle loesungen (funktioniert nicht bei Output 2, dort nur > 0)
+         */
+        int numOfSampleSolutionsToShow = 5;
+        /**
+         * 0 berrechnet alle loesungen fuer eine bestimmte startposition und gibt
+         * numOfSampleSolutionsToShow loesungswege aus
+         * </p>
+         * 1 berrechnet alle loesungen fuer alle startpositionen zusammen und gibt zu
+         * jeder startposition numOfSampleSolutionsToShow loesungswege aus
+         * </p>
+         * 2 berrechnet numOfSampleSolutionsToShow loesungswege und gibt diese aus
+         * </p>
+         */
         int typeOfOutput = 0; // 0 fuer eine bestimmte Startposition, 1 fuer alle zusammen, 2 fuer einzelne
                               // Loesungen
+        /**
+         * Instanz der springerproblem klasse mit allen vorherigen werten
+         */
         Springerproblem problem1 = new Springerproblem(col, row, simplifiedVariant, closedTour, startingPosition,
                 numOfSampleSolutionsToShow);
-        // problem1.run();
 
         switch (typeOfOutput) {
             case 0:
