@@ -13,7 +13,7 @@ public class Schachnotation {
    * @param y     int, y position des springers
    * @param x     int, x position des springers
    * @param sizey int, anzahl der zeilen des spielbretts
-   * @return gibt einen String wider, welcher die position des springers in
+   * @return gibt einen string wider, welcher die position des springers in
    *         schachnotation ist
    */
   public static String getSchanotation(int y, int x, int sizey) {

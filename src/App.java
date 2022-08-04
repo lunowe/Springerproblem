@@ -20,11 +20,11 @@ public class App {
         /**
          * anzahl an spalten
          */
-        int col = 10;
+        int col = 8;
         /**
          * anzahl an zeilen
          */
-        int row = 3;
+        int row = 8;
         /**
          * gibt an ob es sich um die geschlossene variante handelt
          */
@@ -42,7 +42,7 @@ public class App {
          * </p>
          * < 0 fuer alle loesungen (funktioniert nicht bei Output 2, dort nur > 0)
          */
-        int numOfSampleSolutionsToShow = 5;
+        int numOfSampleSolutionsToShow = 1;
         /**
          * 0 berrechnet alle loesungen fuer eine bestimmte startposition und gibt
          * numOfSampleSolutionsToShow loesungswege aus
@@ -53,8 +53,7 @@ public class App {
          * 2 berrechnet numOfSampleSolutionsToShow loesungswege und gibt diese aus
          * </p>
          */
-        int typeOfOutput = 1; // 0 fuer eine bestimmte Startposition, 1 fuer alle zusammen, 2 fuer einzelne
-                              // Loesungen
+        int typeOfOutput = 2;
         /**
          * Instanz der springerproblem klasse mit allen vorherigen werten
          */

@@ -8,7 +8,6 @@ import java.util.*;
  * 
  */
 public class Springerproblem {
-  // Random rand = new Random();
   /**
    * alle moeglichen zuege fuer den springer entlang der x-achse
    */
@@ -230,20 +229,9 @@ public class Springerproblem {
    */
   private boolean checkIfBoardAreEqual(int[][] currentBoard, ArrayList<int[][]> prevBoards) {
     for (int[][] b : prevBoards) {
-      // boolean isEqual = true;
       if (Arrays.deepEquals(currentBoard, b)) {
         return true;
       }
-      // for (int i = 0; i < this.sizeY; i++) {
-      // for (int j = 0; j < this.sizeX; j++) {
-      // if (currentBoard[i][j] != b[i][j]) {
-      // isEqual = false;
-      // }
-      // }
-      // }
-      // if (isEqual) {
-      // return true;
-      // }
     }
     return false;
   }
