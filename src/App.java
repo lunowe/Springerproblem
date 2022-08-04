@@ -1,6 +1,6 @@
 /**
  * 
- * App Klasse in das springerproblem programm ausgefuehrt wird
+ * app klasse in der das springerproblem programm ausgefuehrt wird
  * 
  * @author Luca Noel Wegner, Arnd Bethge
  */
@@ -20,15 +20,15 @@ public class App {
         /**
          * anzahl an spalten
          */
-        int col = 3;
+        int col = 10;
         /**
          * anzahl an zeilen
          */
-        int row = 10;
+        int row = 3;
         /**
          * gibt an ob es sich um die geschlossene variante handelt
          */
-        boolean closedTour = true;
+        boolean closedTour = false;
         /**
          * gibt an ob es sich um die klasische oder vereinfachte variante handelt
          */
@@ -53,7 +53,7 @@ public class App {
          * 2 berrechnet numOfSampleSolutionsToShow loesungswege und gibt diese aus
          * </p>
          */
-        int typeOfOutput = 0; // 0 fuer eine bestimmte Startposition, 1 fuer alle zusammen, 2 fuer einzelne
+        int typeOfOutput = 1; // 0 fuer eine bestimmte Startposition, 1 fuer alle zusammen, 2 fuer einzelne
                               // Loesungen
         /**
          * Instanz der springerproblem klasse mit allen vorherigen werten

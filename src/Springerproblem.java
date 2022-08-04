@@ -2,7 +2,7 @@ import java.util.*;
 
 /**
  * 
- * Springerproblem Klasse
+ * springerproblem klasse
  * 
  * @author Luca Wegner, Arnd Bethge
  * 
@@ -124,10 +124,9 @@ public class Springerproblem {
    * 
    * methode welche einen naechsten zug validiert
    * 
-   * @param board   2d array, stellt das spielbrett zum jetzigen zeitpunkt dar
-   * @param row     int, y position des springers zum zeipunkt des naechsten zuges
-   * @param col     int, x position des springers zum zeipunkt des naechsten zuges
-   * @param counter int, gibt den n.ten zug an
+   * @param board 2d array, stellt das spielbrett zum jetzigen zeitpunkt dar
+   * @param row   int, y position des springers zum zeipunkt des naechsten zuges
+   * @param col   int, x position des springers zum zeipunkt des naechsten zuges
    * @return gibt einen boolean wieder ob der naechste zug moeglich ist oder nicht
    */
   private boolean validateMove(int[][] board, int row, int col) {

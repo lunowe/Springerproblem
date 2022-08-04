@@ -1,6 +1,6 @@
 /**
  * 
- * Schachnotation Klasse
+ * schachnotation klasse
  * 
  * @author Luca Wegner, Arnd Bethge
  * 
